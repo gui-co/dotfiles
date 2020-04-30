@@ -1,0 +1,97 @@
+###############################################################################
+# Prompt                                                                      #
+###############################################################################
+
+NL=$'\n'
+PROMPT="%F{green}%n@%m %F{blue}%~${NL}%#%f "
+
+# Git / SVN
+# from: https://stackoverflow.com/a/1128583
+setopt prompt_subst
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' actionformats \
+    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats       \
+    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
+zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
+
+zstyle ':vcs_info:*' enable git cvs svn
+
+# or use pre_cmd, see man zshcontrib
+vcs_info_wrapper() {
+  vcs_info
+  if [ -n "$vcs_info_msg_0_" ]; then
+    echo "%{$fg[grey]%}${vcs_info_msg_0_}%{$reset_color%}$del"
+  fi
+}
+RPROMPT=$'$(vcs_info_wrapper)'
+
+###############################################################################
+# Completion                                                                  #
+###############################################################################
+
+autoload -U compinit
+compinit
+zstyle ':completion:*:descriptions' format '%d'
+zstyle ':completion:*:warnings' format 'Sorry, no matches for: %d'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh_cache
+zmodload zsh/complist
+setopt extendedglob
+zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
+
+###############################################################################
+# Env variables                                                               #
+###############################################################################
+
+export EDITOR=/usr/bin/vim
+export SVN_EDITOR=vim
+
+###############################################################################
+# Aliases                                                                     #
+###############################################################################
+
+alias ls='ls --color -lh'
+alias la='ls --color -lah'
+alias h='history'
+alias grep='grep --color=auto'
+alias vi='/usr/bin/vim'
+
+###############################################################################
+# History                                                                     #
+###############################################################################
+
+HISTFILE=~/.zsh_cache/history
+HISTSIZE=10000
+SAVEHIST=10000
+export HISTFILE SAVEHIST
+setopt HIST_IGNORE_ALL_DUPS
+setopt APPEND_HISTORY
+#setopt SHARE_HISTORY
+setopt EXTENDED_HISTORY
+setopt hist_ignore_space
+
+###############################################################################
+# Shortcuts                                                                   #
+###############################################################################
+
+# Press Ctrl-V in zsh to display the code
+bindkey '^[[5~' history-search-backward
+bindkey '^[[6~' history-search-forward
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+bindkey '^[[3~' delete-char
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+
+################################################################################
+# Functions                                                                    #
+################################################################################
+
+# To reduce PDF size (especially scanned documents)
+function reducePdf () {
+    pdf2ps $1 $1.ps;
+    ps2pdf $1.ps $1;
+    rm $1.ps;
+}
+
