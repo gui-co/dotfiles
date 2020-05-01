@@ -4,6 +4,11 @@
 
 NL=$'\n'
 PROMPT="%F{green}%n@%m %F{blue}%~${NL}%#%f "
+CONTAINER=`systemd-detect-virt`
+if [[ $CONTAINER =~ ^lxc.* ]]
+then
+  PROMPT="%F{red}LXC%F{blue} - "$PROMPT
+fi
 
 # Git / SVN
 # from: https://stackoverflow.com/a/1128583
