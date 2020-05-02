@@ -4,10 +4,12 @@
 
 NL=$'\n'
 PROMPT="%F{green}%n@%m %F{blue}%~${NL}%#%f "
-CONTAINER=`systemd-detect-virt`
-if [[ $CONTAINER =~ ^lxc.* ]]
+if [[ $SESSION_TYPE == "lxc" ]]
 then
   PROMPT="%F{red}LXC%F{blue} - "$PROMPT
+elif [[ $SESSION_TYPE == "ssh" ]]
+then
+  PROMPT="%F{red}SSH%F{blue} - "$PROMPT
 fi
 
 # Git / SVN
