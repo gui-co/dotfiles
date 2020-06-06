@@ -50,3 +50,6 @@ endfunction
 
 map <silent> <F2> :call ToggleNetrw()<cr>
 
+" buffers
+set hidden
+
