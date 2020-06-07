@@ -1,0 +1,29 @@
+###############################################################################
+#  <account_name>                                                             #
+###############################################################################
+
+IMAPAccount <account_name>
+Host <imap_server>
+User <email_address>
+PassCmd <password_cmd>
+SSLType IMAPS
+
+# Remote storage
+IMAPStore <account_name>-remote
+Account <account_name>
+
+# Local storage
+MaildirStore <account_name>-local
+Path ~/.mail/<account_name>/
+Inbox ~/.mail/<account_name>/INBOX
+SubFolders Verbatim
+
+Channel <account_name>-inbox
+Master :<account_name>-remote:"INBOX"
+Slave :<account_name>-local:INBOX
+Create Slave
+Expunge Both
+
+Group <account_name>
+Channel <account_name>-inbox
+
