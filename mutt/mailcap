@@ -1,0 +1,6 @@
+application/pdf; /usr/bin/evince %s
+image/*;         eog %s
+text/html;       /usr/bin/w3m -o auto_image=TRUE %s -T text/html; nametemplate=%s.html; needsterminal
+text/html;       /usr/bin/w3m -o auto_image=TRUE %s -T text/html; nametemplate=%s.html; copiousoutput
+text/*;          /usr/bin/vim %s; needsterminal
+

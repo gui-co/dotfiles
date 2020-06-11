@@ -1,0 +1,31 @@
+# sidebar
+bind index,pager <down>  sidebar-next
+bind index,pager <up>    sidebar-prev
+bind index,pager <right> sidebar-open
+
+# emails
+bind index,pager k       previous-entry
+bind index,pager j       next-entry
+bind index,pager g       noop
+bind index       gg      first-entry
+bind pager       gg      top
+bind index       G       last-entry
+bind pager       G       bottom
+bind index       <space> collapse-thread
+bind index,pager d       noop
+bind index,pager dd      delete-message
+bind index,pager c       create-alias
+bind index       <space> collapse-thread
+bind pager       o       noop
+bind index,pager @       compose-to-sender
+
+# macros
+macro pager       \cb \
+    "<pipe-message>urlscan<Enter>" \
+    "call urlscan to extract URLs out of a message"
+macro index,pager O \
+    "<shell-escape>mbsync -a<enter>" \
+    "run mbsync to sync all mail"
+
+# vim:syntax=muttrc
+

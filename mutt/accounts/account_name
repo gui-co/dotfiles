@@ -1,0 +1,28 @@
+set from      = <email_adress>
+
+set sendmail  = "/usr/bin/msmtp -a <account_name>"
+
+# folders
+set spoolfile = +<account_name>/INBOX
+set trash     = +<account_name>/trash
+set record    = +<account_name>/sent
+set postponed = +<account_name>/drafts
+
+# aliases
+alternates <email_address_2>
+
+# macros
+macro index,pager o \
+    "<shell-escape>mbsync <account_name><enter>" \
+    "run mbsync to sync mail for this account"
+macro index,pager a \
+    "<save-message>+<account_name>/archive<enter>" \
+    "move message to the archive"
+macro index,pager i \
+    "<save-message>+<account_name>/INBOX<enter>" \
+    "move message to the inbox"
+
+unset signature
+
+# vim:syntax=muttrc
+

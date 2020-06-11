@@ -1,0 +1,105 @@
+# paths
+set certificate_file = /etc/ssl/certs/ca-certificates.crt
+set folder           = ~/.mail
+set mailcap_path     = ~/.mutt/mailcap
+set message_cachedir = ~/.mutt/cache/bodies
+set tmpdir           = ~/.mutt/tmp
+
+# basic options
+set beep_new         = no
+set confirmappend    = no
+set delete           = yes
+set mail_check       = 0
+set mail_check_stats = yes
+set mark_old         = no
+set mbox_type        = Maildir
+set move             = no
+set quit             = yes
+set thorough_search  = yes
+set timeout          = 3
+set wait_key         = no
+
+# compose View Options
+set askcc          = yes
+set attribution    = "Le %d, %n a écrit :"
+set charset        = "utf-8"
+set edit_headers   = yes
+set editor         = vim
+set envelope_from  = yes
+set fast_reply     = yes
+set fcc_attach     = yes
+set forward_decode = yes
+set forward_format = "Fwd: %s"
+set forward_quote  = yes
+set include        = yes
+set mime_forward   = no
+set quote_regexp   = "^([ \t]*[|>:}#])+”
+set reply_regexp   = "^((re)(\[[0-9]+\])*:[ \t]*)*"
+set reply_to       = yes
+set reverse_name   = yes
+set sig_dashes     = yes
+set send_charset   = "utf-8:iso-8859-1:us-ascii"
+set text_flowed    = yes
+
+# index
+set date_format     = "%d.%m.%Y %H:%M"
+set index_format    = "[%Z] %?X?A&-? %D  %-20.20F  %s"
+set sort            = threads
+set sort_aux        = reverse-last-date-received
+set status_chars    = " *%A"
+set status_format   = "[ %f ] [%r%m message(s)%?n? (%n nouveau(x))? ]%>─"
+set uncollapse_jump = yes
+
+# pager
+alternative_order     text/plain text/enriched text/html
+auto_view             text/html
+set markers           = no
+set menu_scroll       = yes
+set pager_context     = 3
+set pager_index_lines = 10
+set pager_stop        = yes
+set tilde             = yes
+ignore                *
+unignore              from: to: cc: bcc: date: subject:
+unhdr_order           *
+hdr_order             from: to: cc: bcc: date: subject:
+
+# sidebar patch config
+set sidebar_divider_char  = ' | '
+set sidebar_folder_indent = yes
+set sidebar_format        = "%B %* %?N?[%N]?"
+set sidebar_indent_string = '  '
+set sidebar_short_path    = yes
+set sidebar_visible       = yes
+set sidebar_width         = 25
+
+# pgp
+set crypt_use_gpgme  = yes
+set crypt_verify_sig = yes
+set pgp_sign_as      = <pgp_key>
+
+# aliases
+set alias_file       = ~/.mutt/aliases
+set reverse_alias    = yes
+set sort_alias       = alias
+source $alias_file
+
+# source colors and keybindings
+source ~/.mutt/colors
+source ~/.mutt/bindings
+
+# sidebar folders
+named-mailboxes <account_name> =<account_name>/INBOX
+mailboxes =<account_name>/sent
+mailboxes =<account_name>/trash
+mailboxes =<account_name>/drafts
+mailboxes =<account_name>/archive
+
+# default account
+set realname = "Guillaume Communie"
+set spoolfile = "+<account_name>/INBOX"
+source ~/.mutt/accounts/<account_name>
+
+# hooks
+folder-hook "=<account_name>/*" source ~/.mutt/accounts/<account_name>
+
