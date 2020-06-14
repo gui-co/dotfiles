@@ -14,7 +14,7 @@ bind pager       G       bottom
 bind index       <space> collapse-thread
 bind index,pager d       noop
 bind index,pager dd      delete-message
-bind index,pager c       create-alias
+bind editor      <Tab>   complete-query
 bind index       <space> collapse-thread
 bind pager       o       noop
 bind index,pager @       compose-to-sender
@@ -26,6 +26,9 @@ macro pager       \cb \
 macro index,pager O \
     "<shell-escape>mbsync -a<enter>" \
     "run mbsync to sync all mail"
+macro index,pager  c \
+    "<pipe-message>abook --add-email-quiet<return>" \
+    "Add this sender to Abook"
 
 # vim:syntax=muttrc
 
