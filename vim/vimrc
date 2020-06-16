@@ -1,21 +1,30 @@
-" colors
+" general
+setlocal encoding=utf-8
 set background=dark
 colorscheme solarized
-
-" syntax detection
 syntax enable
 filetype plugin indent on
-
-" encoding
-setlocal encoding=utf-8
-
-" highlight matching parenthesis
-set showmatch
-
-" indentation
-set tabstop=2
-set shiftwidth=2
+set nu
 set expandtab
+set showmatch
+set splitright
+set splitbelow
+set wildmenu
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" buffers
+set path=.,**
+set hidden
+let mapleader = ";"
+nnoremap <leader>b  :ls<CR>:b<Space>
+nnoremap <leader>sb :ls<CR>:vert sb<Space>
+nnoremap <leader>p  :bp<CR>
+nnoremap <leader>n  :bn<CR>
+nnoremap <leader>d  :bd<CR>
+nnoremap <leader>f  :find *
+nnoremap <leader>sf :vert sfind *
 
 " swp and backup
 set directory=~/.vim/swp
@@ -47,9 +56,5 @@ function! ToggleNetrw()
         silent Lexplore
     endif
 endfunction
-
 map <silent> <F2> :call ToggleNetrw()<cr>
-
-" buffers
-set hidden
 
