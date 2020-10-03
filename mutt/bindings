@@ -18,6 +18,7 @@ bind editor      <Tab>   complete-query
 bind index       <space> collapse-thread
 bind pager       o       noop
 bind index,pager @       compose-to-sender
+bind index,pager R       group-reply
 
 # macros
 macro pager       \cb \
