@@ -3,7 +3,12 @@
 ###############################################################################
 
 NL=$'\n'
-PROMPT="%F{green}%n@%m %F{blue}%~${NL}%#%f "
+if [[ `whoami` == 'root' ]]
+then
+    PROMPT="%F{red}%n@%m %F{blue}%~ %#%f "
+else
+    PROMPT="%F{green}%n@%m %F{blue}%~${NL}%#%f "
+fi
 if [[ $SESSION_TYPE == "lxc" ]]
 then
   PROMPT="%F{red}LXC%F{blue} - "$PROMPT
