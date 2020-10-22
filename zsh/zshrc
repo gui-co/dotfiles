@@ -47,6 +47,16 @@ zmodload zsh/complist
 setopt extendedglob
 zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
 
+function _lxc-start() {
+  compadd `lxc-ls`
+}
+compdef _lxc-start lxc-start
+
+function _lxc-stop() {
+  compadd `lxc-ls --running`
+}
+compdef _lxc-stop lxc-stop
+
 ###############################################################################
 # Env variables                                                               #
 ###############################################################################
