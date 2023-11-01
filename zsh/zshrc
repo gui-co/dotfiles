@@ -10,16 +10,13 @@ else
     PROMPT="%F{green}%n@%m %F{blue}%~${NL}%#%f "
 fi
 
-if [[ ! -v SESSION_TYPE ]]
+SESSION_TYPE="native"
+if [[ `systemd-detect-virt` =~ ^lxc.* ]]
 then
-    SESSION_TYPE="native"
-    if [[ `systemd-detect-virt` =~ ^lxc.* ]]
-    then
-        SESSION_TYPE="lxc"
-    elif [[ -n $SSH_CLIENT ]]
-    then
-        SESSION_TYPE="ssh"
-    fi
+    SESSION_TYPE="lxc"
+elif [[ -n $SSH_CLIENT ]]
+then
+    SESSION_TYPE="ssh"
 fi
 
 if [[ $SESSION_TYPE == "lxc" ]]
