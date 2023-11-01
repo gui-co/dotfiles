@@ -75,6 +75,17 @@ function _lxc-stop() {
 }
 compdef _lxc-stop lxc-stop
 
+_totp() {
+    local IFS=$'\n'
+    local prefix
+    _arguments : \
+        "-c[put it on the clipboard]" \
+        "--clip[put it on the clipboard]"
+    zstyle -s ":completion:${curcontext}:" prefix prefix || prefix="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
+    _values -C 'passwords' ${$(find -L "$prefix" \( -name .git -o -name .gpg-id \) -prune -o $@ -print 2>/dev/null     | sed -e "s#${prefix}/\{0,1\}##" -e 's#\.gpg##' -e 's#\\#\\\\#g' -e 's#:#\\:#g' | sort):-""}
+}
+compdef _totp totp
+
 ###############################################################################
 # Env variables                                                               #
 ###############################################################################
@@ -158,5 +169,11 @@ function reducePdf () {
     pdf2ps $1 $1.ps;
     ps2pdf $1.ps $1;
     rm $1.ps;
+}
+
+# get totp from pass
+function totp() {
+    totp=`pass $1 | grep "totp:" | awk -F ':' '{print $2}'`
+    oathtool --base32 --totp ${totp}
 }
 
