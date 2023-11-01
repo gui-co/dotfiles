@@ -89,6 +89,8 @@ compdef _totp totp
 
 export EDITOR=/usr/bin/vim
 export SVN_EDITOR=vim
+export GPG_TTY=$(tty)
+export PASSWORD_STORE_X_SELECTION=primary
 
 ###############################################################################
 # Aliases                                                                     #
